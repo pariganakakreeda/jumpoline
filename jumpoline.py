@@ -3,7 +3,7 @@ import pygame, sys, random
 pygame.init()
 screen = pygame.display.set_mode((1280,720))
 clock = pygame.time.Clock()
-pygame.mouse.set_visible(False)
+pygame.mouse.set_visible(True)
 
 
 background4_png = pygame.image.load('background4.png')
@@ -26,7 +26,9 @@ trampoline_rect=(t1_pos_x,t1_pos_y)
 
 g3_pos_x = 550
 g3_pos_y = 300
-g3_rect=(g3_pos_x,g3_pos_y)
+#g3_rect=(g3_pos_x,g3_pos_y)
+g3_rect=(t1_pos_x,t1_pos_y)
+
 
 g3_top_max_pos = 50
 g3_bottom_max_pos = g3_pos_y
@@ -46,14 +48,14 @@ while True:
         sys.exit()
       if event.type == pygame.MOUSEMOTION:
         x, y = event.pos
-        if started:
-           trampoline_rect = trampoline3_png.get_rect(center =(x, t1_pos_y))
-        else:
-           trampoline_rect = trampoline3_png.get_rect(center =(t1_pos_x,t1_pos_y))
+       # if started:
+        trampoline_rect = trampoline3_png.get_rect(center =(x,t1_pos_y))
+       # else:
+       #    trampoline_rect = trampoline3_png.get_rect(center =(t1_pos_x,t1_pos_y))
 
         #print(x,g1_pos_x)
         #if g1_rect.collidepoint(x,t1_pos_y):
-        if x - g3_pos_x >-50 and x - g3_pos_x <50 :
+        if x - g3_pos_x >-250 and x - g3_pos_x <90 :
            #print("collide")
            collided = True
         elif started:
