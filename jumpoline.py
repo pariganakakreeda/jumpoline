@@ -14,10 +14,15 @@ g2_png = pygame.image.load('g2.png')
 #cloud1_png = pygame.image.load('cloud1.png')
 clouds_png = pygame.image.load('clouds.png')
 #g4_png = pygame.image.load('g4.png')
+playbutton_png = pygame.image.load('playbutton.png')
 
-game_font = pygame.font.Font(None,60)
-text_surface = game_font.render('GAME OVER',True,(0,240,170))
-text_rect = text_surface.get_rect(center = (640,360))
+
+#game_font = pygame.font.Font(None,60)
+#text_surface = game_font.render('GAME OVER',True,(0,240,170))
+#text_rect = text_surface.get_rect(center = (640,360))
+
+pb_pos_x = 0
+pb_pos_y = 0
 
 t1_pos_x = 550
 t1_pos_y = 550
@@ -39,6 +44,7 @@ collided = True
 started = False
 can_miss = False
 
+playbutton_rect = playbutton_png.get_rect(center =(pb_pos_x,pb_pos_y))
 
 while True:
     g3_rect=g3_png.get_rect(center =(g3_pos_x,g3_pos_y))
@@ -48,32 +54,28 @@ while True:
         sys.exit()
       if event.type == pygame.MOUSEMOTION:
         x, y = event.pos
-       # if started:
         trampoline_rect = trampoline3_png.get_rect(center =(x,t1_pos_y))
-       # else:
-       #    trampoline_rect = trampoline3_png.get_rect(center =(t1_pos_x,t1_pos_y))
-
-        #print(x,g1_pos_x)
-        #if g1_rect.collidepoint(x,t1_pos_y):
         if x - g3_pos_x >-250 and x - g3_pos_x <90 :
-           #print("collide")
            collided = True
         elif started:
            collided = False
       if event.type == pygame.MOUSEBUTTONDOWN:
-         started = True
-         can_miss = True
+         if playbutton_rect.collidepoint(event.pos):
+            started = True
+            can_miss = True
 
-        #print(x)
-        #t1_pos_x = x
     screen.blit(background4_png,(0,0))
     screen.blit(trampoline3_png,(trampoline_rect))
     screen.blit(clouds_png,(0,0))
+    if not started:
+       screen.blit(playbutton_png,(0,0))
+
     if collided and started:
        screen.blit(g3_png,g3_rect)
     elif can_miss:
        screen.blit(g1falling_png,(0,0))
        started = False
+
 
     if g3_pos_y <= g3_top_max_pos or g3_pos_y > g3_bottom_max_pos :
        speed = speed * -1
